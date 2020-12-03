@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --config webpack.config.js"
+    "start": "webpack serve --config webpack.config.js",
+    "lint": "eslint . --fix"
   },
   "author": "Nnanyielugo",
   "license": "ISC",
@@ -29,6 +30,11 @@
     "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^5.0.1",
     "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "imagemin-webpack-plugin": "^2.4.2",
