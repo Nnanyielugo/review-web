@@ -3,11 +3,11 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
-import Container from './container';
+import Root from './Root';
+import Container from './Container';
 
 const app = (
-  <Container Component={App} />
+  <Container Component={Root} />
 );
 
 const root = document.createElement('div');
