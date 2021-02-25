@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.grey[50],
     position: 'fixed',
     overflow: 'auto',
     display: 'none',

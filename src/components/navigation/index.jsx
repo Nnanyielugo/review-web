@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 0,
     display: 'none',
+    color: theme.palette.primary.main,
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'linear-gradient(to right,#9cdff7, #f79cae)',
   },
   button: {
-    color: '#FFF',
+    color: theme.palette.secondary.light,
     fontSize: 15,
   },
   toolbar: {
@@ -58,14 +60,17 @@ export default function Navigation() {
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="fixed">
         <Toolbar className={classes.toolbar}>
-          <div className={classes.logoContainer}>
+          <Link
+            to="/"
+            className={classes.logoContainer}
+          >
             <img
               className={classes.logo}
               src="public/images/logo.svg"
               alt=""
             />
             <h3 className={classes.title}>Review</h3>
-          </div>
+          </Link>
           <Button className={classes.button}>Login</Button>
         </Toolbar>
       </AppBar>
