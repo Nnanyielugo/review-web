@@ -1,5 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Switch, Route } from 'react-router-dom';
+
+import Reviews from './pages/Reviews';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 85,
     paddingLeft: 20,
     flex: 1,
-    // position: 'relative',
   },
 }));
 
@@ -31,7 +33,12 @@ export default function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div>Hello World</div>
+      <Switch>
+        <Route exact path="/" component={Reviews} />
+        <Route path="*">
+          <div>No match found</div>
+        </Route>
+      </Switch>
     </div>
   );
 }

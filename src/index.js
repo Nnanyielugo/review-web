@@ -2,12 +2,15 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import Root from './Root';
 import Container from './Container';
 
 const app = (
-  <Container Component={Root} />
+  <Router>
+    <Container Component={Root} />
+  </Router>
 );
 
 const root = document.createElement('div');

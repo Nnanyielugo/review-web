@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './components/navigation';
 import ThemeProvider from './ThemeProvider';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: 'whitesmoke',
     height: '100%',
