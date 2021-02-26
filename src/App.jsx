@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
+import AuthProvider from './providers/auth/provider';
+
 import Reviews from './pages/Reviews';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,12 +35,14 @@ export default function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Switch>
-        <Route exact path="/" component={Reviews} />
-        <Route path="*">
-          <div>No match found</div>
-        </Route>
-      </Switch>
+      <AuthProvider>
+        <Switch>
+          <Route exact path="/" component={Reviews} />
+          <Route path="*">
+            <div>No match found</div>
+          </Route>
+        </Switch>
+      </AuthProvider>
     </div>
   );
 }

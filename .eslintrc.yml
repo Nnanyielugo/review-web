@@ -16,5 +16,6 @@ plugins:
   - react
 rules: {
   strict: 1,
-  react/jsx-filename-extension: 1
+  react/jsx-filename-extension: 1,
+  react/require-default-props: 1,
 }

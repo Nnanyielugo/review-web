@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../providers/auth';
 
 import Review from '../components/review';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Reviews() {
   const classes = useStyles();
+  const auth = useAuth();
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
