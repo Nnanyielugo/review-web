@@ -6,10 +6,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Root from './Root';
 import Container from './Container';
+import AppProvider from './providers';
 
 const app = (
   <Router>
-    <Container Component={Root} />
+    <AppProvider>
+      <Container Component={Root} />
+    </AppProvider>
   </Router>
 );
 
