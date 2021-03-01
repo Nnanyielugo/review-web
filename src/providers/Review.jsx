@@ -2,7 +2,7 @@ import React, {
   useReducer, useContext, createContext,
 } from 'react';
 import PropTypes from 'prop-types';
-import FetchHelper from '../utils/fetch-utils';
+import FetchHelper from 'utils/fetch-utils';
 
 const FETCH_REVIEWS = 'FETCH_REVIEWS';
 

@@ -152,19 +152,23 @@ export default function Review({ review }) {
   return (
     <Paper className={classes.root}>
       <div className={classes.wrapper}>
-      <h4 className={classes.reviewHeaderMobile}>Review for Book &quot;Title&quot;</h4>
-      <div className={classes.imageContainer}>
-        <img
-          src="public/images/placeholder.png"
-          alt="Book Cover"
-          className={classes.image}
-        />
-      </div>
+        <h4 className={classes.reviewHeaderMobile}>
+          Review for &nbsp;
+          {review.book.title}
+        </h4>
+        <div className={classes.imageContainer}>
+          <img
+            src="public/images/placeholder.png"
+            alt="Book Cover"
+            className={classes.image}
+          />
+        </div>
         <div>
           <div className={classes.textContainer}>
             <h4 className={classes.reviewHeader}>
-              Review for
-              &quot;{review.book.title}&quot;</h4>
+              Review for &nbsp;
+              {review.book.title}
+            </h4>
             <span className={classes.text}>
               {review.content}
             </span>

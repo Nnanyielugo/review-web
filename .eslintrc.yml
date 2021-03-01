@@ -14,10 +14,16 @@ parserOptions:
   allowImportExportEverywhere: true
 plugins:
   - react
+settings: {
+  import/resolver: {
+    babel-module: {}
+  }
+}
 rules: {
   strict: 1,
   react/jsx-filename-extension: 1,
   react/require-default-props: 1,
   no-underscore-dangle: 1,
   no-lonely-if: 1,
+  arrow-body-style: 1,
 }

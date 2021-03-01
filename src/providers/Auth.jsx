@@ -2,18 +2,27 @@ import React, {
   useEffect, useReducer, useContext, createContext,
 } from 'react';
 import PropTypes from 'prop-types';
-import { setAuthStore } from '../utils/fetch-utils';
+import { setAuthStore } from 'utils/fetch-utils';
 
 const SET_AUTH = 'SET_AUTH';
 const UPDATE_AUTH = 'UPDATE_AUTH';
 const LOGOUT = 'LOGOUT';
 
+const initialState = {
+  activeUser: {},
+  token: '',
+};
+
 function reducer(state, action) {
-  const { type, auth } = action;
+  const { type, payload } = action;
   switch (type) {
     case SET_AUTH:
     case UPDATE_AUTH:
-      return { ...state, auth };
+      return {
+        ...state,
+        activeUser: payload.activeUser,
+        token: payload.token,
+      };
     case LOGOUT:
       return {};
     default:
@@ -26,7 +35,7 @@ const Context = createContext(null);
 export default function Provider({ children }) {
   const persistKey = 'auth';
   const persistAuth = JSON.parse(localStorage.getItem(persistKey));
-  const [auth, dispatch] = useReducer(reducer, persistAuth || {});
+  const [auth, dispatch] = useReducer(reducer, initialState);
   setAuthStore(auth);
 
   useEffect(async () => {
@@ -44,6 +53,20 @@ export default function Provider({ children }) {
     });
   };
 
+  const autoAuth = async () => {
+    try {
+      const savedAuth = JSON.parse(localStorage.getItem(persistKey));
+      if (savedAuth && (savedAuth.activeUser && savedAuth.token)) {
+        dispatch({
+          type: SET_AUTH,
+          payload: savedAuth,
+        });
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   const updateAuth = (_auth) => {
     dispatch({
       type: UPDATE_AUTH,
@@ -51,7 +74,8 @@ export default function Provider({ children }) {
     });
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await localStorage.removeItem(persistKey);
     dispatch({
       type: LOGOUT,
     });
@@ -62,6 +86,7 @@ export default function Provider({ children }) {
     setAuth,
     updateAuth,
     logout,
+    autoAuth,
   };
 
   return (

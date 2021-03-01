@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Navigation from './components/navigation';
+import Navigation from 'components/navigation';
+import ModalManager from './ModalManager';
 import ThemeProvider from './ThemeProvider';
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +18,7 @@ export default function Index({ Component }) {
     <ThemeProvider>
       <main className={classes.root}>
         <Navigation />
+        <ModalManager />
         <Component />
       </main>
     </ThemeProvider>

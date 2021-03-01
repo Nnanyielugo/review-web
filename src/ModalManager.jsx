@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { useModal } from './providers/Modal';
+import { useModal } from 'providers/Modal';
 
-import Login from './components/modal/login';
-import Register from './components/modal/register';
-import ForgotPwd from './components/modal/forgotpwd';
+import Login from 'components/modal/login';
+import Register from 'components/modal/register';
+import ForgotPwd from 'components/modal/forgotpwd';
 
 const ModalContent = {
   login: {
