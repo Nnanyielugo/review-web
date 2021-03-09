@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -48,10 +48,11 @@ module.exports = {
     }),
     config.devMode ? new webpack.HotModuleReplacementPlugin() : null,
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // new CopyWebpackPlugin([
-    //   { from: './styles', to: 'styles' },
-    //   { from: './resources', to: 'resources' }
-    // ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './public/mockServiceWorker.js', to: './' },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       minify: {
