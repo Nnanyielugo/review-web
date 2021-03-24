@@ -1,17 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-// import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Form, Field } from 'react-final-form';
 import validate from 'validate.js';
-import { useModal } from 'providers/Modal';
-import { useAuth } from 'providers/Auth';
-import TextField from 'components/reusables/TextField';
+import { FORM_ERROR } from 'final-form';
+import { useModal } from '_providers/Modal';
+import { useAuth } from '_providers/Auth';
+import TextField from '_components/reusables/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'inline-block',
+    display: 'block',
     position: 'relative',
   },
   submitContainer: {
@@ -45,11 +44,27 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     fontSize: 13,
   },
+  errorContainer: {
+    marginTop: 3,
+    marginbottom: 3,
+  },
+  errorText: {
+    textAlign: 'center',
+    color: theme.palette.secondary.dark,
+  },
+  submitErrorContainer: {
+    marginTop: 12,
+    marginbottom: 3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 export default function Login() {
   const classes = useStyles();
-  const { updateModal } = useModal();
+  const { updateModal, closeModal } = useModal();
+  const { login } = useAuth();
   const constraints = {
     email: {
       email: true,
@@ -60,21 +75,20 @@ export default function Login() {
     },
   };
 
-  const submit = (values) => {};
-
-  const ComposedTextField = ({
-    label,
-    inputType,
-    fullWidth,
-  }) => {
-    return (
-      <TextField
-        label={label}
-        type={inputType}
-        fullWidth={fullWidth}
-      />
-    )
-  }
+  const submit = async (values) => {
+    try {
+      await login({
+        user: {
+          ...values,
+        },
+      });
+      closeModal();
+    } catch (err) {
+      return {
+        [FORM_ERROR]: err.message,
+      };
+    }
+  };
 
   return (
     <Form
@@ -84,34 +98,51 @@ export default function Login() {
         handleSubmit, submitting, errors,
         touched, submitError, submitFailed,
       }) => (
-        <form className={classes.root}>
+        <form className={classes.root} onSubmit={handleSubmit}>
           <div className={classes.loginTextContainer}>
             <h3 className={classes.loginText}>Login</h3>
           </div>
           <div>
             <Field
-              component={ComposedTextField}
+              component={TextField}
               label="Email"
               fullWidth
               name="email"
-              inputType="hhsk"
+              error={(errors.email && touched.email)}
             />
+            {(errors.email && touched.email) && (
+              <div className={classes.errorContainer}>
+                <span className={classes.errorText}>{errors.email}</span>
+              </div>
+            )}
             <Field
-              component={ComposedTextField}
+              component={TextField}
               label="Password"
               fullWidth
               name="password"
-              inputType="password"
+              inputtype="password"
+              error={(errors.password && touched.password)}
             />
+            {(errors.password && touched.password) && (
+              <div className={classes.errorContainer}>
+                <span className={classes.errorText}>{errors.password}</span>
+              </div>
+            )}
           </div>
           <div className={classes.submitContainer}>
             <Button
               variant="contained"
               className={classes.submitButton}
+              type="submit"
             >
-              Submit
+              {submitting ? 'Submitting' : 'Submit'}
             </Button>
           </div>
+          {(submitFailed && submitError) && (
+            <div className={classes.submitErrorContainer}>
+              <span className={classes.errorText}>{submitError}</span>
+            </div>
+          )}
           <div className={classes.bottomContainer}>
             <button
               className={classes.forgotPwd}
