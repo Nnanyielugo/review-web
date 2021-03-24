@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { useModal } from './providers/Modal';
+import { useModal } from '_providers/Modal';
 
-import Login from './components/modal/login';
-import Register from './components/modal/register';
-import ForgotPwd from './components/modal/forgotpwd';
+import Login from '_components/forms/login';
+import Register from '_components/forms/register';
+import ForgotPwd from '_components/forms/forgotpwd';
 
 const ModalContent = {
   login: {
@@ -54,6 +53,7 @@ export default function ModalManager() {
         open={modal.open}
         onClose={closeModal}
         className={classes.modal}
+        disablePortal
       >
         <div className={classes.paper}>
           <Content />

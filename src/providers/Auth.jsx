@@ -1,57 +1,98 @@
 import React, {
-  useEffect, useReducer, useContext, createContext,
+  useReducer, useContext, createContext,
 } from 'react';
 import PropTypes from 'prop-types';
-import { setAuthStore } from '../utils/fetch-utils';
+import FetchHelper, { setAuthStore } from '_utils/fetch-utils';
 
-const SET_AUTH = 'SET_AUTH';
-const UPDATE_AUTH = 'UPDATE_AUTH';
+const LOGIN = 'LOGIN';
+const REGISTER = 'REGISTER';
 const LOGOUT = 'LOGOUT';
 
+const initialState = {
+  activeUser: {},
+  token: '',
+};
+
 function reducer(state, action) {
-  const { type, auth } = action;
+  const { type, payload } = action;
   switch (type) {
-    case SET_AUTH:
-    case UPDATE_AUTH:
-      return { ...state, auth };
+    case LOGIN:
+    case REGISTER:
+      return {
+        ...state,
+        activeUser: payload.activeUser,
+        token: payload.token,
+      };
     case LOGOUT:
-      return {};
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }
 }
 
-const Context = createContext(null);
+export const Context = createContext(null);
 
 export default function Provider({ children }) {
   const persistKey = 'auth';
-  const persistAuth = JSON.parse(localStorage.getItem(persistKey));
-  const [auth, dispatch] = useReducer(reducer, persistAuth || {});
+  const [auth, dispatch] = useReducer(reducer, initialState);
   setAuthStore(auth);
 
-  useEffect(async () => {
+  const login = async (payload) => {
     try {
-      await localStorage.setItem(persistKey, JSON.stringify(auth));
+      const response = await FetchHelper('/api/users/login', {
+        method: 'POST',
+        body: payload,
+      });
+
+      await localStorage.setItem(persistKey, JSON.stringify(response.user));
+
+      dispatch({
+        type: LOGIN,
+        payload: response.user,
+      });
+    } catch (err) {
+      console.warn(err);
+      throw err;
+    }
+  };
+
+  const autoAuth = async () => {
+    try {
+      const savedAuth = JSON.parse(localStorage.getItem(persistKey));
+      if (savedAuth && (savedAuth.activeUser && savedAuth.token)) {
+        dispatch({
+          type: LOGIN,
+          payload: savedAuth,
+        });
+      }
     } catch (err) {
       console.warn(err);
     }
-  }, [auth]);
-
-  const setAuth = (_auth) => {
-    dispatch({
-      type: SET_AUTH,
-      auth: _auth,
-    });
   };
 
-  const updateAuth = (_auth) => {
-    dispatch({
-      type: UPDATE_AUTH,
-      _auth,
-    });
+  const register = async (payload) => {
+    try {
+      const response = await FetchHelper('/api/users/', {
+        method: 'POST',
+        body: payload,
+      });
+
+      await localStorage.setItem(persistKey, JSON.stringify(response.user));
+
+      dispatch({
+        type: REGISTER,
+        payload: response.user,
+      });
+    } catch (err) {
+      console.warn(err);
+      throw err;
+    }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    localStorage.removeItem(persistKey);
     dispatch({
       type: LOGOUT,
     });
@@ -59,9 +100,10 @@ export default function Provider({ children }) {
 
   const state = {
     auth,
-    setAuth,
-    updateAuth,
+    login,
+    register,
     logout,
+    autoAuth,
   };
 
   return (

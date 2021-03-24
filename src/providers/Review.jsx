@@ -2,13 +2,15 @@ import React, {
   useReducer, useContext, createContext,
 } from 'react';
 import PropTypes from 'prop-types';
-import FetchHelper from '../utils/fetch-utils';
+import FetchHelper from '_utils/fetch-utils';
 
 const FETCH_REVIEWS = 'FETCH_REVIEWS';
+const FETCH_REVIEWS_FAILED = 'FETCH_REVIEWS_FAILED';
 
 const initialState = {
   reviews: [],
   reviewsCount: 0,
+  error: null,
 };
 
 function reducer(state, action) {
@@ -20,22 +22,35 @@ function reducer(state, action) {
         reviews: payload.reviews,
         reviewsCount: payload.reviewsCount,
       };
+    case FETCH_REVIEWS_FAILED:
+      return {
+        ...state,
+        error: `There was an error executing your request: ${payload.error}`,
+      };
     default:
       return state;
   }
 }
 
-const Context = createContext(null);
+export const Context = createContext(null);
 
 export default function Provider({ children }) {
   const [reviews, dispatch] = useReducer(reducer, initialState);
 
   const fetchReviews = async () => {
-    const response = await FetchHelper('/api/reviews/');
-    dispatch({
-      type: FETCH_REVIEWS,
-      payload: response,
-    });
+    try {
+      const response = await FetchHelper('/api/reviews/');
+      dispatch({
+        type: FETCH_REVIEWS,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_REVIEWS_FAILED,
+        payload: err.message,
+      });
+      throw err;
+    }
   };
 
   const state = {

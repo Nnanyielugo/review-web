@@ -2,6 +2,7 @@ env:
   browser: true
   es2021: true
   node: true
+  jest: true
 extends:
   - 'plugin:react/recommended'
   - airbnb
@@ -14,10 +15,20 @@ parserOptions:
   allowImportExportEverywhere: true
 plugins:
   - react
+settings: {
+  import/resolver: {
+    babel-module: {}
+  }
+}
 rules: {
   strict: 1,
-  react/jsx-filename-extension: 1,
-  react/require-default-props: 1,
   no-underscore-dangle: 1,
   no-lonely-if: 1,
+  arrow-body-style: 0,
+  camelcase: 0,
+  import/prefer-default-export: 0,
+  import/no-extraneous-dependencies: 1,
+  react/jsx-filename-extension: 1,
+  react/require-default-props: 1,
+  react/forbid-prop-types: 1,
 }

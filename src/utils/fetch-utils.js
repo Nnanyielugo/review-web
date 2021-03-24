@@ -2,19 +2,25 @@ import config from 'config';
 import isString from 'lodash/isString';
 
 function getBody(response) {
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.indexOf('application/json') !== -1) {
-    return response.json();
+  if (response.headers) {
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.indexOf('application/json') !== -1) {
+      return response.json();
+    }
+    return response.text();
   }
-  return response.text();
+  return response;
 }
 
 class FetchError {
   constructor(response, body) {
-    this.name = 'FetchError';
-    this.status = response.status;
-    this.message = (body && body.message) ? body.message : '';
-    this.errorCode = body ? body.errorCode : null;
+    const { message, error } = body.error;
+    const errorMessage = 'There was an error processing your request';
+
+    this.name = error.name || 'Fetch Error';
+    this.status = response.status || error.status;
+    this.message = message || errorMessage;
+    this.errorCode = error.status;
     this.body = body;
   }
 }
@@ -22,9 +28,10 @@ class FetchError {
 FetchError.prototype = Error.prototype;
 
 function checkResponseStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.status >= 200 && response.status < 400) {
     return response;
   }
+
   return getBody(response).then((body) => {
     throw new FetchError(response, body);
   });

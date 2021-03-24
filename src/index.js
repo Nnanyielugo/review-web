@@ -4,9 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import AppProvider from '_providers';
 import Root from './Root';
 import Container from './Container';
-import AppProvider from './providers';
 
 const app = (
   <Router>
