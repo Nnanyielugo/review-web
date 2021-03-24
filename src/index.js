@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import AppProvider from 'providers';
+import AppProvider from '_providers';
 import Root from './Root';
 import Container from './Container';
 

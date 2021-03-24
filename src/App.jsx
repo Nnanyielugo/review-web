@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
-import Reviews from 'pages/Reviews';
+import Reviews from '_pages/Reviews';
 
 const useStyles = makeStyles((theme) => ({
   root: {
