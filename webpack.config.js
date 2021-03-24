@@ -48,11 +48,11 @@ module.exports = {
     }),
     config.devMode ? new webpack.HotModuleReplacementPlugin() : null,
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: './public/mockServiceWorker.js', to: './' },
-      ],
-    }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     { from: './public/mockServiceWorker.js', to: './' },
+    //   ],
+    // }),
     new HtmlWebpackPlugin({
       template: './index.html',
       minify: {
