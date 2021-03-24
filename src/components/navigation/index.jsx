@@ -4,7 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import { useModal } from 'providers/Modal';
+import { useModal } from '_providers/Modal';
+import { useAuth } from '_providers/Auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navigation() {
   const classes = useStyles();
   const { openModal } = useModal();
+  const { auth } = useAuth();
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="fixed">
@@ -73,12 +75,18 @@ export default function Navigation() {
             />
             <h3 className={classes.title}>Review</h3>
           </Link>
-          <Button
-            className={classes.button}
-            onClick={() => openModal('login')}
-          >
-            Login
-          </Button>
+          {(auth.activeUser && auth.token) ? (
+            <div>
+              {auth.activeUser.username}
+            </div>
+          ) : (
+            <Button
+              className={classes.button}
+              onClick={() => openModal('login')}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
