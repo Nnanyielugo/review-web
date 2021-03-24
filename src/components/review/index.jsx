@@ -205,4 +205,4 @@ export default function Review({ review }) {
 
 Review.propTypes = {
   review: PropTypes.object.isRequired,
-}
+};
