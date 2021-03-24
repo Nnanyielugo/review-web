@@ -34,7 +34,7 @@ function reducer(state, action) {
   }
 }
 
-const Context = createContext(null);
+export const Context = createContext(null);
 
 export default function Provider({ children }) {
   const [modal, dispatch] = useReducer(reducer, initialState);
