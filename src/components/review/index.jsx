@@ -6,6 +6,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteIconOutline from '@material-ui/icons/FavoriteBorder';
 import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
+import { displayCount } from '_utils/display_utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -179,9 +180,13 @@ export default function Review({ review }) {
             <div className={classes.statsContainer}>
               <div className={classes.likesContainer}>
                 <FavoriteIcon className={classes.favorited} />
-                <span className={classes.likes}>4 Likes</span>
+                <span className={classes.likes}>
+                  {displayCount(review.favorites_count, 'like')}
+                </span>
               </div>
-              <span className={classes.comments}>5 comments</span>
+              <span className={classes.comments}>
+                {displayCount(review.comments.length, 'comment')}
+              </span>
             </div>
 
             <div className={classes.respondContainer}>
