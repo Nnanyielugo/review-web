@@ -10,24 +10,28 @@ import ShareIcon from '@material-ui/icons/Share';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.grey[100],
-    height: 380,
+    height: 'auto',
     marginRight: 20,
     padding: '20px 10px 20px 10px',
     [theme.breakpoints.down('sm')]: {
-      height: 435,
+      // height: 435,
       display: 'block',
       marginRight: 15,
     },
   },
   wrapper: {
     textAlign: 'center',
-    height: 330,
+    height: 'auto',
     display: 'flex',
     flexWrap: 'nowrap',
     overflowY: 'scroll',
     [theme.breakpoints.down('sm')]: {
       height: 400,
       display: 'block',
+      // display: '-webkit-box',
+      // '-webkit-line-clamp': 4,
+      // '-webkit-box-orient': 'vertical',
+      // overflow: 'hidden',
       paddingTop: 8,
       paddingBottom: 8,
     },
@@ -169,9 +173,7 @@ export default function Review({ review }) {
               Review for &nbsp;
               {review.book.title}
             </h4>
-            <span className={classes.text}>
-              {review.content}
-            </span>
+            <span className={classes.text}>{review.content}</span>
           </div>
           <div>
             <div className={classes.statsContainer}>
