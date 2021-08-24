@@ -148,7 +148,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Review({ review }) {
-  console.log('review in component', review);
   const classes = useStyles();
   if (!review) return null;
   return (

@@ -48,7 +48,6 @@ const setHeadersFromStore = () => {
   const headers = {};
   const authUser = authStore || null;
   const localAuth = JSON.parse(localStorage.getItem('auth'));
-  console.log('auths', authUser, localAuth);
 
   if (authUser && authUser.token) {
     headers.Authorization = `Bearer ${authUser.token}`;
@@ -90,8 +89,6 @@ export default async (url, options = {}, type = 'json') => {
       'Content-Type': 'application/json',
       ...headers,
     };
-
-    console.log('headers', headers);
 
     //  eslint-disable-next-line no-param-reassign
     options = {
