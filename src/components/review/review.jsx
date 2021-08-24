@@ -148,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Review({ review }) {
+  console.log('review in component', review);
   const classes = useStyles();
   if (!review) return null;
   return (
@@ -159,7 +160,7 @@ export default function Review({ review }) {
         </h4>
         <div className={classes.imageContainer}>
           <img
-            src="public/images/placeholder.png"
+            src="/public/images/placeholder.png"
             alt="Book Cover"
             className={classes.image}
           />

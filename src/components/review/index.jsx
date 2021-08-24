@@ -167,7 +167,7 @@ export default function Review({ review }) {
 
         <div className={classes.imageContainer}>
           <img
-            src="public/images/placeholder.png"
+            src="/public/images/placeholder.png"
             alt="Book Cover"
             className={classes.image}
           />

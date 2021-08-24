@@ -64,21 +64,16 @@ export default function Navigation() {
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="fixed">
         <Toolbar className={classes.toolbar}>
-          <Link
-            to="/"
-            className={classes.logoContainer}
-          >
+          <Link to="/" className={classes.logoContainer}>
             <img
               className={classes.logo}
-              src="public/images/logo.svg"
+              src="/public/images/logo.svg"
               alt=""
             />
             <h3 className={classes.title}>Review</h3>
           </Link>
-          {(auth.activeUser && auth.token) ? (
-            <div>
-              {auth.activeUser.username}
-            </div>
+          {auth.activeUser && auth.token ? (
+            <div>{auth.activeUser.username}</div>
           ) : (
             <Button
               className={classes.button}
