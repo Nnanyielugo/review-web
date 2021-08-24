@@ -1,6 +1,4 @@
-import React, {
-  useReducer, useContext, createContext,
-} from 'react';
+import React, { useReducer, useContext, createContext } from 'react';
 import PropTypes from 'prop-types';
 import FetchHelper, { setAuthStore } from '_utils/fetch-utils';
 
@@ -61,7 +59,7 @@ export default function Provider({ children }) {
   const autoAuth = async () => {
     try {
       const savedAuth = JSON.parse(localStorage.getItem(persistKey));
-      if (savedAuth && (savedAuth.activeUser && savedAuth.token)) {
+      if (savedAuth && savedAuth.activeUser && savedAuth.token) {
         dispatch({
           type: LOGIN,
           payload: savedAuth,
@@ -106,11 +104,7 @@ export default function Provider({ children }) {
     autoAuth,
   };
 
-  return (
-    <Context.Provider value={state}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={state}>{children}</Context.Provider>;
 }
 
 Provider.propTypes = {

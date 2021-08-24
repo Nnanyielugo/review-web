@@ -40,14 +40,21 @@ function checkResponseStatus(response) {
 let authStore;
 
 // eslint-disable-next-line no-return-assign
-export const setAuthStore = (newStore) => (authStore = newStore);
+export const setAuthStore = (newStore) => {
+  authStore = newStore;
+};
 
 const setHeadersFromStore = () => {
   const headers = {};
-  const authUser = authStore ? authStore.auth : null;
+  const authUser = authStore || null;
+  const localAuth = JSON.parse(localStorage.getItem('auth'));
 
   if (authUser && authUser.token) {
     headers.Authorization = `Bearer ${authUser.token}`;
+  }
+
+  if (localAuth && localAuth.token) {
+    headers.Authorization = `Bearer ${localAuth.token}`;
   }
   return headers;
 };
@@ -64,7 +71,9 @@ export default async (url, options = {}, type = 'json') => {
     let { body, headers } = options;
     const { returnWholeResponse } = options;
     if (!isString(url)) {
-      throw new Error("Fetch wrapper requires a 'url' property that is a string");
+      throw new Error(
+        "Fetch wrapper requires a 'url' property that is a string"
+      );
     }
     if (url.indexOf('http') !== 0) {
       //  eslint-disable-next-line no-param-reassign

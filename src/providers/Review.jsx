@@ -1,6 +1,4 @@
-import React, {
-  useReducer, useContext, createContext,
-} from 'react';
+import React, { useReducer, useContext, createContext } from 'react';
 import PropTypes from 'prop-types';
 import FetchHelper from '_utils/fetch-utils';
 
@@ -11,6 +9,7 @@ const initialState = {
   reviews: [],
   reviewsCount: 0,
   error: null,
+  review: null,
 };
 
 function reducer(state, action) {
@@ -53,16 +52,18 @@ export default function Provider({ children }) {
     }
   };
 
+  const fetchReview = async (id) => {
+    const response = await FetchHelper(`/api/reviews/${id}`);
+    return response;
+  };
+
   const state = {
     reviews,
     fetchReviews,
+    fetchReview,
   };
 
-  return (
-    <Context.Provider value={state}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={state}>{children}</Context.Provider>;
 }
 
 Provider.propTypes = {
