@@ -14,23 +14,31 @@ const useStyles = makeStyles(() => ({
 
 export default function Review() {
   const classes = useStyles();
-  const { fetchReview, reviews } = useReview();
+  const { fetchReview } = useReview();
   const [review, setReview] = useState({});
   const { id } = useParams();
-  console.log('id from params', id);
 
   useEffect(async () => {
-    const response = await fetchReview(id);
-    if (response) {
-      setReview(response.review);
-    }
+    fetchReview(id)
+      .then((response) => {
+        setReview(response.review);
+      })
+      .catch((err) => {
+        // handle error or show message
+        console.log(err);
+      });
+    return () => {
+      setReview({});
+    };
   }, []);
+
+  if (!Object.keys(review).length) return null;
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ReviewItem review={reviews.review} />
+          <ReviewItem review={review} />
         </Grid>
       </Grid>
     </div>
