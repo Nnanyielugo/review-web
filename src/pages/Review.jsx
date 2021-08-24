@@ -14,14 +14,14 @@ const useStyles = makeStyles(() => ({
 
 export default function Review() {
   const classes = useStyles();
-  const { fetchReview } = useReview();
+  const { fetchReviewAndComments } = useReview();
   const [review, setReview] = useState({});
   const { id } = useParams();
 
-  useEffect(async () => {
-    fetchReview(id)
+  useEffect(() => {
+    fetchReviewAndComments(id)
       .then((response) => {
-        setReview(response.review);
+        setReview(response);
       })
       .catch((err) => {
         // handle error or show message

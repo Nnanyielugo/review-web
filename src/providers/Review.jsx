@@ -57,10 +57,28 @@ export default function Provider({ children }) {
     return response;
   };
 
+  const fetchComment = async (id) => {
+    const response = await FetchHelper(`/api/reviews/${id}/comments`);
+    return response;
+  };
+
+  const fetchReviewAndComments = async (id) => {
+    const [reviewResp, commentsResp] = await Promise.all([
+      fetchReview(id),
+      fetchComment(id),
+    ]);
+
+    return {
+      review: reviewResp.review,
+      comments: commentsResp.comments,
+    };
+  };
+
   const state = {
     reviews,
     fetchReviews,
     fetchReview,
+    fetchReviewAndComments,
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

@@ -21,9 +21,7 @@ export default function Index({ Component }) {
 
   useEffect(async () => {
     autoAuth();
-    await Promise.allSettled([
-      fetchReviews(),
-    ]);
+    await Promise.allSettled([fetchReviews()]);
   }, []);
 
   return (

@@ -7,6 +7,7 @@ import FavoriteIconOutline from '@material-ui/icons/FavoriteBorder';
 import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 import { displayCount } from '_utils/display_utils';
+import Comment from './comment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'nowrap',
     overflowY: 'scroll',
     [theme.breakpoints.down('sm')]: {
-      height: 400,
+      // height: 400,
       display: 'block',
       paddingTop: 8,
       paddingBottom: 8,
@@ -67,7 +68,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   statsContainer: {
-    // borderTop: '1px solid #d1d1d1',
+    borderTop: '1px solid #d1d1d1',
+    borderBottom: '1px solid #d1d1d1',
+    paddingBottom: 5,
+    marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 5,
@@ -145,9 +149,15 @@ const useStyles = makeStyles((theme) => ({
   share: {
     fill: theme.palette.secondary.dark,
   },
+  commentsContainer: {
+    marginLeft: 40,
+    marginRight: 15,
+    marginBottom: 20,
+    marginTop: 10,
+  },
 }));
 
-export default function Review({ review }) {
+export default function Review({ review: { review, comments } }) {
   const classes = useStyles();
   if (!review) return null;
   return (
@@ -183,6 +193,12 @@ export default function Review({ review }) {
               <span className={classes.comments}>
                 {displayCount(review.comments.length, 'comment')}
               </span>
+            </div>
+
+            <div className={classes.commentsContainer}>
+              {comments.map((comment) => (
+                <Comment comment={comment} key={comment._id} />
+              ))}
             </div>
 
             <div className={classes.respondContainer}>
