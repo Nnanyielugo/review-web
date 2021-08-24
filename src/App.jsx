@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
 import Reviews from '_pages/Reviews';
+import Review from '_pages/Review';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ export default function App() {
     <div className={classes.root}>
       <Switch>
         <Route exact path="/" component={Reviews} />
+        <Route path="/reviews/:id" component={Review} />
         <Route path="*">
           <div>No match found</div>
         </Route>

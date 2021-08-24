@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -30,10 +29,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       height: 400,
       display: 'block',
-      // display: '-webkit-box',
-      // '-webkit-line-clamp': 4,
-      // '-webkit-box-orient': 'vertical',
-      // overflow: 'hidden',
       paddingTop: 8,
       paddingBottom: 8,
     },
@@ -158,13 +153,10 @@ export default function Review({ review }) {
   return (
     <Paper className={classes.root}>
       <div className={classes.wrapper}>
-        <Link to={`/reviews/${review._id}`}>
-          <h4 className={classes.reviewHeaderMobile}>
-            Review for &nbsp;
-            {review.book.title}
-          </h4>
-        </Link>
-
+        <h4 className={classes.reviewHeaderMobile}>
+          Review for &nbsp;
+          {review.book.title}
+        </h4>
         <div className={classes.imageContainer}>
           <img
             src="public/images/placeholder.png"
@@ -174,12 +166,10 @@ export default function Review({ review }) {
         </div>
         <div>
           <div className={classes.textContainer}>
-            <Link to={`/reviews/${review._id}`}>
-              <h4 className={classes.reviewHeader}>
-                Review for &nbsp;
-                {review.book.title}
-              </h4>
-            </Link>
+            <h4 className={classes.reviewHeader}>
+              Review for &nbsp;
+              {review.book.title}
+            </h4>
             <span className={classes.text}>{review.content}</span>
           </div>
           <div>
