@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import AppProvider from '_providers';
 import Root from './Root';
-import Container from './Container';
+import Container from './container';
 
 const app = (
   <Router>
