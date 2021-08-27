@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
+import { useAuth } from '_providers/Auth';
 
 import Reviews from '_pages/Reviews';
 import Review from '_pages/Review';
@@ -10,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     marginRight: 10,
     [theme.breakpoints.up('md')]: {
-      marginLeft: 324,
-      marginRight: 130,
+      marginLeft: (props) => (props.loggedIn ? 324 : 125),
+      marginRight: (props) => (props.loggedIn ? 125 : 130),
       marginTop: theme.spacing(2),
     },
     [theme.breakpoints.up('lg')]: {
       display: 'block',
-      marginLeft: 524,
-      marginRight: 230,
+      marginLeft: (props) => (props.loggedIn ? 524 : 225),
+      marginRight: (props) => (props.loggedIn ? 225 : 230),
       marginTop: theme.spacing(3),
     },
     backgroundColor: '#FFF',
@@ -31,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App() {
-  const classes = useStyles();
+  const { auth } = useAuth();
+  const isLoggedInUser = !!Object.keys(auth.activeUser).length;
+  const classes = useStyles({ loggedIn: isLoggedInUser });
   return (
     <div className={classes.root}>
       <Switch>
