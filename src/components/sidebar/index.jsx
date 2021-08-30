@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '5px 0px 10px -10px grey',
     [theme.breakpoints.up('md')]: {
       display: 'block',
-      marginLeft: 124,
-      width: 200,
+      marginLeft: 74,
+      width: 250,
       paddingLeft: 5,
       paddingRight: 5,
     },
@@ -71,8 +71,6 @@ export default function Sidebar() {
   useEffect(() => {
     fetchUser(auth.activeUser._id);
   }, [auth.activeUser]);
-
-  console.log('user in sidebar', user);
 
   if (!Object.keys(user.user).length) return null;
   return (

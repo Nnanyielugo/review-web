@@ -5,14 +5,15 @@ import { useAuth } from '_providers/Auth';
 
 import Reviews from '_pages/Reviews';
 import Review from '_pages/Review';
+import Books from '_pages/Books';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: 10,
     marginRight: 10,
     [theme.breakpoints.up('md')]: {
-      marginLeft: (props) => (props.loggedIn ? 324 : 125),
-      marginRight: (props) => (props.loggedIn ? 125 : 130),
+      marginLeft: (props) => (props.loggedIn ? 324 : 75),
+      marginRight: (props) => (props.loggedIn ? 75 : 80),
       marginTop: theme.spacing(2),
     },
     [theme.breakpoints.up('lg')]: {
@@ -40,6 +41,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Reviews} />
         <Route path="/reviews/:id" component={Review} />
+        <Route path="/books" component={Books} />
         <Route path="*">
           <div>No match found</div>
         </Route>

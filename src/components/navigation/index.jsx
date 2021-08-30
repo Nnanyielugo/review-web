@@ -39,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: 'linear-gradient(to right,#9cdff7, #f79cae)',
+    paddingTop: 3,
+    paddingBottom: 3,
   },
   button: {
     color: theme.palette.secondary.light,
@@ -46,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     [theme.breakpoints.up('md')]: {
-      marginLeft: 100,
-      marginRight: 100,
+      marginLeft: 50,
+      marginRight: 50,
     },
     [theme.breakpoints.up('lg')]: {
       marginLeft: 200,
