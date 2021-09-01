@@ -6,6 +6,7 @@ import { useAuth } from '_providers/Auth';
 import Reviews from '_pages/Reviews';
 import Review from '_pages/Review';
 import Books from '_pages/Books';
+import Book from '_pages/Book';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +42,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Reviews} />
         <Route path="/reviews/:id" component={Review} />
-        <Route path="/books" component={Books} />
+        <Route exact path="/books" component={Books} />
+        <Route path="/books/:id" component={Book} />
         <Route path="*">
           <div>No match found</div>
         </Route>

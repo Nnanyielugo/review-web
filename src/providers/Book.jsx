@@ -51,9 +51,16 @@ export default function Provider({ children }) {
     }
   };
 
+  const fetchBook = async (id) => {
+    const uri = `/api/books/${id}`;
+    const response = await FetchHelper(uri);
+    return response;
+  };
+
   const state = {
     books,
     fetchBooks,
+    fetchBook,
   };
 
   return <Context.Provider value={state}>{children}</Context.Provider>;
