@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
@@ -60,12 +61,9 @@ export default function Review({ review }) {
   return (
     <div className={classes.review}>
       <div>
-        {/* <span className={classes.author}>
-          {`${comment.comment_author.displayname.trim()}:`}
-          &nbsp;
-        </span> */}
-        <StyledText>{review.content}</StyledText>
-        {/* <span className={classes.text}>{review.content}</span> */}
+        <Link to={`/reviews/${review._id}`}>
+          <StyledText>{review.content}</StyledText>
+        </Link>
       </div>
     </div>
   );

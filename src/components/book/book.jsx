@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 20,
     padding: '20px 10px 20px 10px',
     [theme.breakpoints.down('sm')]: {
-      // height: 435,
       display: 'block',
       marginRight: 15,
     },
@@ -24,13 +23,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'nowrap',
     overflowY: 'scroll',
     [theme.breakpoints.down('sm')]: {
-      // height: 400,
       display: 'block',
-      // display: '-webkit-box',
-      // '-webkit-line-clamp': 4,
-      // '-webkit-box-orient': 'vertical',
-      // overflow: 'hidden',
-      paddingTop: 8,
       paddingBottom: 8,
     },
   },
@@ -99,6 +92,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
     marginTop: 10,
   },
+  reviewsLabel: {
+    padding: 0,
+    marginTop: 15,
+    marginBottom: 0,
+    textAlign: 'left',
+    fontSize: 16,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
+      marginBottom: 10,
+    },
+  },
 }));
 
 export default function Book({ book }) {
@@ -132,6 +136,7 @@ export default function Book({ book }) {
             <span className={classes.text}>{book.summary}</span>
           </div>
           <div className={classes.reviewsContainer}>
+            <h5 className={classes.reviewsLabel}>Reviews</h5>
             {book.reviews.map((review) => (
               <Review review={review} key={review._id} />
             ))}
